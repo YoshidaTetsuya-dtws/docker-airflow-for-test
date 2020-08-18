@@ -14,6 +14,11 @@ services:
     webserver:
         image: puckel/docker-airflow:1.10.9
         restart: always
+        build:
+            context: .
+            args:
+                - AIRFLOW_DEPS=gcp,google_auth
+                - PYTHON_DEPS=beautifulsoup4
         depends_on:
             - postgres
         environment:
@@ -25,7 +30,9 @@ services:
                 max-file: "3"
         volumes:
             - ./dags:/usr/local/airflow/dags
-            # - ./plugins:/usr/local/airflow/plugins
+            - ./plugins:/usr/local/airflow/plugins
+            - ./variables:/usr/local/airflow/variables
+            - ./auth_keys:/usr/local/airflow/auth_keys
         ports:
             - "8080:8080"
         command: webserver
