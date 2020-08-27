@@ -68,21 +68,14 @@ RUN set -ex \
     && export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
     echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" > /etc/apt/sources.list.d/google-cloud-sdk.list && \
     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
-    export JAVA_REPO="cloud-sdk-$(lsb_release -c -s)" && \
-    echo "deb http://http.debian.net/debian buster-backports main" >> /etc/apt/sources.list && \
-    apt-get update && \
-    apt-get install -y -t buster-backports openjdk-8-jdk \
+    apt-get update \
     && apt-get install -y \
  	google-cloud-sdk=${CLOUD_SDK_VERSION}-0 \
         google-cloud-sdk-app-engine-python=${CLOUD_SDK_VERSION}-0 \
         google-cloud-sdk-app-engine-python-extras=${CLOUD_SDK_VERSION}-0 \
         google-cloud-sdk-app-engine-go=${CLOUD_SDK_VERSION}-0 \
         google-cloud-sdk-datalab=${CLOUD_SDK_VERSION}-0 \
-        google-cloud-sdk-datastore-emulator=${CLOUD_SDK_VERSION}-0 \
-        google-cloud-sdk-pubsub-emulator=${CLOUD_SDK_VERSION}-0 \
-        google-cloud-sdk-bigtable-emulator=${CLOUD_SDK_VERSION}-0 \
         google-cloud-sdk-cbt=${CLOUD_SDK_VERSION}-0 \
-        kubectl \
     && pip install pytz \
     && pip install pyOpenSSL \
     && pip install ndg-httpsclient \
