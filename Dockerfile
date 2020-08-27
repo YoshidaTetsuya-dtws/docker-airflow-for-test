@@ -16,6 +16,8 @@ ARG AIRFLOW_VERSION=1.10.9
 ARG AIRFLOW_USER_HOME=/usr/local/airflow
 ARG AIRFLOW_DEPS=""
 ARG PYTHON_DEPS=""
+ARG CLOUD_SDK_VERSION=232.0.0
+ENV CLOUD_SDK_VERSION=$CLOUD_SDK_VERSION
 ENV AIRFLOW_HOME=${AIRFLOW_USER_HOME}
 
 # Define en_US.
@@ -46,7 +48,15 @@ RUN set -ex \
         build-essential \
         default-libmysqlclient-dev \
         apt-utils \
-        curl \
+	curl \
+        gcc \
+        python-dev \
+        python-setuptools \
+        apt-transport-https \
+        lsb-release \
+        openssh-client \
+        git \
+        gnupg \
         rsync \
         netcat \
         locales \
@@ -54,7 +64,25 @@ RUN set -ex \
     && locale-gen \
     && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
     && useradd -ms /bin/bash -d ${AIRFLOW_USER_HOME} airflow \
-    && pip install -U pip setuptools wheel \
+    && pip install -U pip setuptools wheel crcmod \
+    && export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
+    echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" > /etc/apt/sources.list.d/google-cloud-sdk.list && \
+    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
+    export JAVA_REPO="cloud-sdk-$(lsb_release -c -s)" && \
+    echo "deb http://http.debian.net/debian buster-backports main" >> /etc/apt/sources.list && \
+    apt-get update && \
+    apt-get install -y -t buster-backports openjdk-8-jdk \
+    && apt-get install -y \
+ 	google-cloud-sdk=${CLOUD_SDK_VERSION}-0 \
+        google-cloud-sdk-app-engine-python=${CLOUD_SDK_VERSION}-0 \
+        google-cloud-sdk-app-engine-python-extras=${CLOUD_SDK_VERSION}-0 \
+        google-cloud-sdk-app-engine-go=${CLOUD_SDK_VERSION}-0 \
+        google-cloud-sdk-datalab=${CLOUD_SDK_VERSION}-0 \
+        google-cloud-sdk-datastore-emulator=${CLOUD_SDK_VERSION}-0 \
+        google-cloud-sdk-pubsub-emulator=${CLOUD_SDK_VERSION}-0 \
+        google-cloud-sdk-bigtable-emulator=${CLOUD_SDK_VERSION}-0 \
+        google-cloud-sdk-cbt=${CLOUD_SDK_VERSION}-0 \
+        kubectl \
     && pip install pytz \
     && pip install pyOpenSSL \
     && pip install ndg-httpsclient \
