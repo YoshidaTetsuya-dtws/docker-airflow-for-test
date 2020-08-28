@@ -4,6 +4,7 @@ volumes:
     dags:
     plugins:
     variables:
+    logs:
 
 services:
     postgres:
@@ -39,6 +40,7 @@ services:
             - dags:/usr/local/airflow/dags:rw
             - plugins:/usr/local/airflow/plugins:rw
             - variables:/usr/local/airflow/variables:rw
+            - logs:/usr/local/airflow/logs:rw
             - ./auth_keys:/usr/local/airflow/auth_keys:rw
         ports:
             - "8080:8080"

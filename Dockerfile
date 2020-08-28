@@ -99,7 +99,7 @@ RUN set -ex \
 COPY script/entrypoint.sh /entrypoint.sh
 COPY config/airflow.cfg ${AIRFLOW_USER_HOME}/airflow.cfg
 
-RUN mkdir -p ${AIRFLOW_USER_HOME}/dags ${AIRFLOW_USER_HOME}/plugins ${AIRFLOW_USER_HOME}/variables
+RUN mkdir -p ${AIRFLOW_USER_HOME}/dags ${AIRFLOW_USER_HOME}/plugins ${AIRFLOW_USER_HOME}/variables ${AIRFLOW_USER_HOME}/logs
 RUN chown -R airflow: ${AIRFLOW_USER_HOME}
 
 EXPOSE 8080 5555 8793
