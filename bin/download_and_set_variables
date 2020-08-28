@@ -1,0 +1,4 @@
+#!/bin/sh
+
+#`mv` gives `insuff permissions` on removal
+./bin/run_command "gsutil cp gs://$1/tmp/$2 /tmp/$2"

@@ -1,4 +1,10 @@
 version: '3.7'
+
+volumes:    
+    dags:
+    plugins:
+    variables:
+
 services:
     postgres:
         image: postgres:9.6
@@ -29,10 +35,10 @@ services:
                 max-size: 10m
                 max-file: "3"
         volumes:
-            - ./dags:/usr/local/airflow/dags
-            - ./plugins:/usr/local/airflow/plugins
-            - ./variables:/usr/local/airflow/variables
-            - ./auth_keys:/usr/local/airflow/auth_keys
+            - dags:/usr/local/airflow/dags:rw
+            - plugins:/usr/local/airflow/plugins:rw
+            - variables:/usr/local/airflow/variables:rw
+            - ./auth_keys:/usr/local/airflow/auth_keys:rw
         ports:
             - "8080:8080"
         command: webserver
