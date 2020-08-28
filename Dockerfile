@@ -42,7 +42,8 @@ RUN set -ex \
     ' \
     && apt-get update -yqq \
     && apt-get upgrade -yqq \
-    && apt-get install -yqq --no-install-recommends \
+    && mkdir -p /usr/share/man/man1 \
+    && apt-get install -yqq \
         $buildDeps \
         freetds-bin \
         build-essential \
@@ -50,6 +51,7 @@ RUN set -ex \
         apt-utils \
 	curl \
         gcc \
+	openjdk-11-jre \
         python-dev \
         python-setuptools \
         apt-transport-https \
