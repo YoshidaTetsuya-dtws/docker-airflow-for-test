@@ -1,4 +1,3 @@
 #!/bin/sh
 
 docker-compose up --build -d
-sudo chown -R airflow:airflow plugins/ #dags/ #FIXME why do we need this?

@@ -30,6 +30,7 @@ services:
         environment:
             - LOAD_EX=n
             - EXECUTOR=Local
+            - FERNET_KEY=GqrIw6jk8LKWkp2CUj6I7N0PkqfdtudFaOMxU0DbC8s=  
         logging:
             options:
                 max-size: 10m
