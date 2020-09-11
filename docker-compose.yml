@@ -3,7 +3,7 @@ version: '3.7'
 volumes:    
     dags:
     plugins:
-    variables:
+    tmp:
     logs:
 
 services:
@@ -39,7 +39,7 @@ services:
         volumes:
             - dags:/usr/local/airflow/dags:rw
             - plugins:/usr/local/airflow/plugins:rw
-            - variables:/usr/local/airflow/variables:rw
+            - tmp:/usr/local/airflow/tmp:rw
             - logs:/usr/local/airflow/logs:rw
             - ./auth_keys:/usr/local/airflow/auth_keys:rw
         ports:
