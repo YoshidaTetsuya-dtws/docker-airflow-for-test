@@ -79,6 +79,7 @@ RUN set -ex \
         google-cloud-sdk-datalab=${CLOUD_SDK_VERSION}-0 \
         google-cloud-sdk-cbt=${CLOUD_SDK_VERSION}-0 \
     && pip install pytz \
+    && pip install flask-bcrypt \
     && pip install pyOpenSSL \
     && pip install ndg-httpsclient \
     && pip install pyasn1 \
