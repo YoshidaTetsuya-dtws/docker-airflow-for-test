@@ -5,6 +5,7 @@ volumes:
     plugins:
     tmp:
     logs:
+    postgres_data:
 
 services:
     postgres:
@@ -17,6 +18,8 @@ services:
             options:
                 max-size: 10m
                 max-file: "3"
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
 
     webserver:
         image: puckel/docker-airflow:1.10.9
