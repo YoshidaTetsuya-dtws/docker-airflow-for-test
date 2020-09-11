@@ -125,6 +125,9 @@ case "$1" in
     sleep 10
     exec airflow "$@"
     ;;
+  python)
+    exec python "$@"
+    ;;
   version)
     exec airflow "$@"
     ;;
