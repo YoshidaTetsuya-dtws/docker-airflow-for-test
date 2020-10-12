@@ -1,5 +1,7 @@
 #!/bin/bash
 
+## this script is for CentOS 8
+
 sudo yum remove -y docker \
      docker-client \
      docker-client-latest \
@@ -23,3 +25,10 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-
      -o /usr/local/bin/docker-compose
 sudo chmod a+x /usr/local/bin/docker-compose
 
+
+
+
+if ! getent group docker > /dev/null 2>&1; then
+    sudo groupadd docker
+fi
+sudo usermod -aG docker $(airflow)
