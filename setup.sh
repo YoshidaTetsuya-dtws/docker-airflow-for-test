@@ -31,4 +31,4 @@ sudo chmod a+x /usr/local/bin/docker-compose
 if ! getent group docker > /dev/null 2>&1; then
     sudo groupadd docker
 fi
-sudo usermod -aG docker $(airflow)
+sudo usermod -aG docker airflow
